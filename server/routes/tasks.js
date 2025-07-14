@@ -2,20 +2,19 @@ import express from 'express';
 import Task from '../models/Task.js';
 const router = express.Router();
 
-// GET all tasks
+// GET all tasks with optional completed filter
 router.get('/', async (req, res) => {
-    const tasks = await Task.find();
-    res.json(tasks);
-});
-
-// GET /api/tasks?completed=false
-router.get('/', async (req, res) => {
-    const { completed } = req.query;
     try {
+        const { completed } = req.query;
         const filter = {};
-        if (completed === 'false') {
+        
+        if (completed === 'true') {
+            filter.completed = true;
+        } else if (completed === 'false') {
             filter.completed = false;
         }
+        // If completed is not specified, return all tasks
+        
         const tasks = await Task.find(filter);
         res.json(tasks);
     } catch (err) {

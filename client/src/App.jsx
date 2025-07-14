@@ -4,6 +4,7 @@ import axios from 'axios';
 import Home from './pages/Home';
 import ProjectView from './pages/ProjectView';
 import Navbar from './components/Navbar';
+import CompletedTasks from './pages/CompletedTasks';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/project/:projectId" element={<ProjectView />} />
+            <Route path="/completedTasks" element={<CompletedTasks />} />
           </Routes>
         </div>
       </div>
