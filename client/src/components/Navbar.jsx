@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-    const linkClassName = "text-black no-underline text-sm font-medium p-3 rounded-md hover:bg-white hover:bg-opacity-10 transition-colors";
+    const linkClassName = "text-black no-underline text-sm font-medium p-3 rounded-md hover:bg-white hover:bg-opacity-50 hover:text-purple-700 transition-colors";
     return (
         <nav className="bg-purple-100 p-4 w-48 min-h-screen fixed left-0 top-0">
             <div className="flex flex-col gap-1">

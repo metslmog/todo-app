@@ -32,13 +32,13 @@ function AddTaskForm({ onTaskAdded }) {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-2 p-4 border rounded bg-gray-100">
-            <h3 className="text-lg font-medium">Add Task</h3>
+            <h3 className="text-lg font-medium">Add task</h3>
             <input
                 type="text"
                 name="title"
                 value={form.title}
                 onChange={handleChange}
-                placeholder="Task Title"
+                placeholder="Task name"
                 required
                 className="w-full p-2 border rounded"
             />
@@ -46,7 +46,7 @@ function AddTaskForm({ onTaskAdded }) {
                 name="description"
                 value={form.description}
                 onChange={handleChange}
-                placeholder="Task Description"
+                placeholder="Task description"
                 className="w-full p-2 border rounded"
             />
             <input
@@ -66,8 +66,8 @@ function AddTaskForm({ onTaskAdded }) {
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
-            <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
-                Add Task
+            <button type="submit" className="px-2 py-1 bg-purple-900 text-white rounded">
+                Add task
             </button>
         </form>
     );

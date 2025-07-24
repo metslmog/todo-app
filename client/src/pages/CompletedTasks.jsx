@@ -21,12 +21,18 @@ function CompletedTasks() {
         setTasks(tasks.filter(task => task._id !== taskId));
     };
 
+    const handleUpdateTask = (updatedTask) => {
+        setTasks((prevTasks) => 
+            prevTasks.map(task => task._id === updatedTask._id ? updatedTask : task)
+        );
+    };
+
     useEffect(() => { fetchTasks(); }, []);
     return (
         <div>
             <h1 className="text-3xl font-bold mb-4">Completed Tasks</h1>
             {error && <div style={{ color: "red" }}>{error}</div>}
-            <TaskList tasks={tasks} onDelete={handleDeleteTask} />
+            <TaskList tasks={tasks} onDelete={handleDeleteTask} onUpdate={handleUpdateTask} />
         </div>
     );
 }
