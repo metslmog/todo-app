@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { updateTask } from '../api/tasks';
-import axios from 'axios';
+import { deleteTask, updateTask } from '../api/tasks';
 
 function TaskItem({ task, onDelete, onUpdate }) {
   const [completed, setCompleted] = useState(task.completed);
@@ -8,7 +7,6 @@ function TaskItem({ task, onDelete, onUpdate }) {
   const [editedTask, setEditedTask] = useState({ ...task });
 
   const iconButtonClass = "bg-white rounded-md border border-transparent p-1.5 text-center text-sm transition-all text-slate-600 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none";
-
 
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
@@ -18,28 +16,12 @@ function TaskItem({ task, onDelete, onUpdate }) {
   };
 
   const handleCheckboxChange = async () => {
-    try {
-      await axios.put(`/api/tasks/${task._id}`, { completed: !completed });
-      setCompleted(!completed);
-      // Optionally, you can call a prop function here to update the parent state
-      // e.g., onToggle(task.id)
-    } catch (error) {
-      console.error('Failed to update task completion:', error);
-      // Optionally, show an error message to the user
-    }
+    await onUpdate(task._id, { completed: !completed });
+    setCompleted(!completed);
   };
 
   const handleDeletion = async () => {
-    try {
-      await axios.delete(`/api/tasks/${task._id}`);
-      // Call the parent's onDelete function to update the parent state
-      if (onDelete) {
-        onDelete(task._id);
-      }
-    } catch (error) {
-      console.error('Failed to delete task:', error);
-      // Optionally, show an error message to the user
-    }
+    await onDelete(task._id);
   };
 
   const handleEdit = (e) => {
@@ -47,17 +29,12 @@ function TaskItem({ task, onDelete, onUpdate }) {
   };
 
   const handleSave = async () => {
-    try {
-      const res = await updateTask(task._id, editedTask);
-      if (onUpdate) onUpdate(res.data);
-      setIsEditing(false);
-    } catch (err) {
-      console.error('Failed to update task:', err);
-    }
+    await onUpdate(task._id, editedTask);
+    setIsEditing(false);
   };
 
   return (
-    <li className="p-2 border bg-white">
+    <li className="py-3 px-2">
       {isEditing ? (
         <div className="flex flex-col gap-2">
           <input

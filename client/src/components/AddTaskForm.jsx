@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 
 function AddTaskForm({ onTaskAdded }) {
     const [form, setForm] = useState({
@@ -16,9 +15,8 @@ function AddTaskForm({ onTaskAdded }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('/api/tasks', {...form, completed: false});
-            console.log('Task created:', res.data);
-            onTaskAdded(res.data); // Let parent component refresh task list
+            const addedTask = await onTaskAdded(form);
+            console.log('Task created:', addedTask);
             setForm({
                 title: '',
                 description: '',
